@@ -28,8 +28,8 @@ env = "DDP" # or env = "pytorch" if you only have one gpu.
 
 max_epoch = 300
 batch_size = 2
-val_every = 10
-num_gpus = 4
+val_every = 2
+num_gpus = 2
 device = "cuda:0"
 
 number_modality = 4

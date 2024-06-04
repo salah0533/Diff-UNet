@@ -61,7 +61,7 @@ class Trainer:
 
         gpu_count = torch.cuda.device_count()
         if num_gpus > gpu_count:
-            print("gpu数量不符")
+            print(f"number gpus {num_gpus} but gpu_count:{gpu_count}")
             os._exit(0)
 
         if env_type == "DDP" or env_type == "ddp":
