@@ -18,7 +18,7 @@ from unet.basic_unet import BasicUNetEncoder
 set_determinism(123)
 import os
 
-data_dir = "./datasets/brats2020/MICCAI_BraTS2020_TrainingData/"
+data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_TrainingData"
 
 max_epoch = 300
 batch_size = 2
