@@ -39,7 +39,7 @@ class Trainer:
                  master_port=17750,
                  training_script="train.py",
                  ):
-        print('----------------------------------------------')
+        print('--------------trainer-------------------------')
         assert env_type in ["pytorch", "ddp", "DDP"], f"not support this env_type: {env_type}"
         self.env_type = env_type
         self.val_every = val_every
