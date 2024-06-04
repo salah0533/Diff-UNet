@@ -172,21 +172,19 @@ def get_loader_brats(data_dir, batch_size=1, fold=0, num_workers=8):
     train_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['train']]
     test_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['test']]
     val_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['test']]
-    print(val_files[0])
+    train_size = len(train_files)
+    test_size = len(test_files)
+    val_size = len(val_files)
     "-------------------------------------------"
     import random
     random.shuffle(all_paths)
     size = len(all_paths)
-    train_size = int(0.7 * size)
-    val_size = int(0.1 * size)
-    train_files = all_paths[:train_size]
-    val_files = all_paths[train_size:train_size + val_size]
-    print(val_files[0])
-    print('-------------------------------------')
-    print('-------------------------------------')
-    print('-------------------------------------')
-    print('-------------------------------------')
-    test_files = all_paths[train_size+val_size:]
+    # train_size = int(0.7 * size)
+    # val_size = int(0.1 * size)
+    # train_files = all_paths[:train_size]
+    # val_files = all_paths[train_size:train_size + val_size]
+
+    # test_files = all_paths[train_size+val_size:]
     print(f"train is {len(train_files)}, val is {len(val_files)}, test is {len(test_files)}")
 
     train_transform = transforms.Compose(
