@@ -127,7 +127,7 @@ class Trainer:
     def get_dist_args(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('--local_rank', type=int, default = 0, help="local_rank")
-        parser.add_argument('--not_call_launch',
+        parser.add_argument('--not_call_launch',default=True,
                             action='store_true',
                             help="not call launch!")
         ds_args = parser.parse_args()
