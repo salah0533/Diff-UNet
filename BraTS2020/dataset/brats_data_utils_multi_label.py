@@ -178,7 +178,7 @@ def get_loader_brats(data_dir, batch_size=1, fold=0, num_workers=8):
     "-------------------------------------------"
     import random
     random.shuffle(all_paths)
-    size = len(all_paths)
+    # .
     # train_size = int(0.7 * size)
     # val_size = int(0.1 * size)
     # train_files = all_paths[:train_size]
