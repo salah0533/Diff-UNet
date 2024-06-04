@@ -42,7 +42,7 @@ class DiffUNet(nn.Module):
 
         self.model = BasicUNetDe(3, number_modality + number_targets, number_targets, [64, 64, 128, 256, 512, 64], 
                                 act = ("LeakyReLU", {"negative_slope": 0.1, "inplace": False}))
-   
+        
         betas = get_named_beta_schedule("linear", 1000)
         self.diffusion = SpacedDiffusion(use_timesteps=space_timesteps(1000, [1000]),
                                             betas=betas,
