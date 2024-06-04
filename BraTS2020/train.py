@@ -30,7 +30,7 @@ max_epoch = 300
 batch_size = 2
 val_every = 10
 num_gpus = 4
-device = "cuda:0"
+device = "cuda"
 
 number_modality = 4
 number_targets = 3 ## WT, TC, ET
