@@ -131,16 +131,12 @@ class Trainer:
                             action='store_true',
                             help="not call launch!")
         ds_args = parser.parse_args()
-        print('-------------------------- prooblem of parser ------------------------------')
         self.rank = int(os.environ.get('RANK',0))
         # self.local_rank = int(os.environ["LOCAL_RANK"])
-        print(f'------------ {ds_args.local_rank} -------------------------------')
         self.local_rank = ds_args.local_rank
         self.not_call_launch = ds_args.not_call_launch
         self.device = self.local_rank
-        print(f'------------ {self.local_rank} -------------------------------')
-        print(f'------------ {self.not_call_launch} -------------------------------')
-        print(f'------------ {self.device} -------------------------------')
+
         # self.master_addr = os.environ.get('MASTER_ADDR','127.0.0.1')
         # self.master_port = os.environ.get('MASTER_PORT','17500')
 
