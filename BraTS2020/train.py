@@ -95,7 +95,7 @@ class BraTSTrainer(Trainer):
 
         self.bce = nn.BCEWithLogitsLoss()
         self.dice_loss = DiceLoss(sigmoid=True)
-
+        print('----------------------------------------------')
     def training_step(self, batch):
         image, label = self.get_input(batch)
         x_start = label
@@ -174,7 +174,7 @@ class BraTSTrainer(Trainer):
 if __name__ == "__main__":
 
     train_ds, val_ds, test_ds = get_loader_brats(data_dir=data_dir, batch_size=batch_size, fold=0)
-    
+
     trainer = BraTSTrainer(env_type=env,
                             max_epochs=max_epoch,
                             batch_size=batch_size,
@@ -184,5 +184,5 @@ if __name__ == "__main__":
                             num_gpus=num_gpus,
                             master_port=17751,
                             training_script=__file__)
-    print('----------------------------------------------')
+
     trainer.train(train_dataset=train_ds, val_dataset=val_ds)
