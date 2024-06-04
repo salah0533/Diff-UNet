@@ -80,9 +80,11 @@ class DiffUNet(nn.Module):
 class BraTSTrainer(Trainer):
     def __init__(self, env_type, max_epochs, batch_size, device="cpu", val_every=1, num_gpus=1, logdir="./logs/", master_ip='localhost', master_port=17750, training_script="train.py"):
         super().__init__(env_type, max_epochs, batch_size, device, val_every, num_gpus, logdir, master_ip, master_port, training_script)
+        print('----------------------------------------------')
         self.window_infer = SlidingWindowInferer(roi_size=[96, 96, 96],
                                         sw_batch_size=1,
                                         overlap=0.25)
+        print('----------------------------------------------')
         self.model = DiffUNet()
         print('----------------------------------------------')
         self.best_mean_dice = 0.0
