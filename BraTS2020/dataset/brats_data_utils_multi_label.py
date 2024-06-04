@@ -184,12 +184,12 @@ def get_loader_brats(data_dir, batch_size=1, fold=0, num_workers=8):
             transforms.ToTensord(keys=["image", "label"]),
         ]
     )
-    print('--------------------------------------------------------')
+    
     train_ds = PretrainDataset(train_files, transform=train_transform)
 
     val_ds = PretrainDataset(val_files, transform=val_transform)
     
-
+    print('--------------------------------------------------------')
     test_ds = PretrainDataset(test_files, transform=val_transform)
 
     loader = [train_ds, val_ds, test_ds]
