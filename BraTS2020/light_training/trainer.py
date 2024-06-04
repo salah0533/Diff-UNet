@@ -138,7 +138,9 @@ class Trainer:
         self.local_rank = ds_args.local_rank
         self.not_call_launch = ds_args.not_call_launch
         self.device = self.local_rank
-    
+        print(f'------------ {self.local_rank} -------------------------------')
+        print(f'------------ {self.not_call_launch} -------------------------------')
+        print(f'------------ {self.device} -------------------------------')
         # self.master_addr = os.environ.get('MASTER_ADDR','127.0.0.1')
         # self.master_port = os.environ.get('MASTER_PORT','17500')
 
