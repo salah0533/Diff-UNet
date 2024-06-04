@@ -84,7 +84,7 @@ class BraTSTrainer(Trainer):
                                         sw_batch_size=1,
                                         overlap=0.25)
         self.model = DiffUNet()
-
+        print('----------------------------------------------')
         self.best_mean_dice = 0.0
         self.optimizer = torch.optim.AdamW(self.model.parameters(), lr=1e-4, weight_decay=1e-3)
         self.ce = nn.CrossEntropyLoss() 
@@ -95,7 +95,7 @@ class BraTSTrainer(Trainer):
 
         self.bce = nn.BCEWithLogitsLoss()
         self.dice_loss = DiceLoss(sigmoid=True)
-        print('----------------------------------------------')
+
     def training_step(self, batch):
         image, label = self.get_input(batch)
         x_start = label
