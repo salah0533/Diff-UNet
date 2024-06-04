@@ -16,7 +16,7 @@ import numpy as np
 import torch
 import torch.nn.parallel
 import torch.utils.data.distributed
-
+import json
 from monai.data import DataLoader
 
 
@@ -263,7 +263,19 @@ class Trainer:
                             train_loader,
                             epoch,
                             )
-            
+            try:
+                os.mkdir('/kaggle/working/tracker')
+            except:
+                pass
+
+            try:
+                os.remove(f'/kaggle/working/tracker/epoch_{epoch-1}')
+            except:
+                pass
+            with open(f'/kaggle/working/tracker/epoch_{epoch}','w') as f:
+                json.dump({'epoch':epoch},f)
+
+
             val_outputs = []
             if (epoch+1) % self.val_every == 0 \
                     and val_loader is not None :
