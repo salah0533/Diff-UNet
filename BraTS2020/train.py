@@ -24,8 +24,8 @@ logdir = "./logs_brats/diffusion_seg_all_loss_embed/"
 
 model_save_path = os.path.join(logdir, "model")
 
-env = "DDP" # or env = "pytorch" if you only have one gpu.
-#env = "pytorch" # or env = "pytorch" if you only have one gpu.
+#env = "DDP" # or env = "pytorch" if you only have one gpu.
+env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 300
 batch_size = 2
 val_every = 2
