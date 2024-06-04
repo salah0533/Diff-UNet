@@ -76,7 +76,6 @@ class Trainer:
                             training_script=training_script,
                             )
                 os._exit(1)
-            print('--------------trainer-------------------------')
             self.initialize_distributed()
 
 
@@ -132,6 +131,7 @@ class Trainer:
                             action='store_true',
                             help="not call launch!")
         ds_args = parser.parse_args()
+        print('-------------------------- prooblem of parser ------------------------------')
         self.rank = int(os.environ.get('RANK',0))
         # self.local_rank = int(os.environ["LOCAL_RANK"])
 

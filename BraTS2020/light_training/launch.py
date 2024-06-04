@@ -110,6 +110,7 @@ def launch_dist(
             os.killpg(os.getpgid(p.pid), 9)
         signal.signal(signal.SIGINT, signal_handler)
         p.wait()
+        
         print ('finish')
 
     else :
