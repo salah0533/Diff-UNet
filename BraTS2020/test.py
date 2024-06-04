@@ -156,7 +156,7 @@ if __name__ == "__main__":
                                     master_port=17751,
                                     training_script=__file__)
 
-    logdir = "./logs_brats/diffusion_seg_all_loss_embed/model/final_model_0.8696.pt"
+    logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/final_model_0.8696.pt"
     trainer.load_state_dict(logdir)
     v_mean, _ = trainer.validation_single_gpu(val_dataset=test_ds)
 

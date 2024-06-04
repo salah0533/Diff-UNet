@@ -20,14 +20,14 @@ set_determinism(123)
 import os
 
 data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/"
-logdir = "./logs_brats/diffusion_seg_all_loss_embed/"
+logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/"
 
 model_save_path = os.path.join(logdir, "model")
 
 #env = "DDP" # or env = "pytorch" if you only have one gpu.
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 300
-batch_size = 2
+batch_size = 1
 val_every = 2
 num_gpus = 2
 device = "cuda:0"
