@@ -134,7 +134,7 @@ class Trainer:
         print('-------------------------- prooblem of parser ------------------------------')
         self.rank = int(os.environ.get('RANK',0))
         # self.local_rank = int(os.environ["LOCAL_RANK"])
-
+        print('------------ ds_args.local_rank -------------------------------')
         self.local_rank = ds_args.local_rank
         self.not_call_launch = ds_args.not_call_launch
         self.device = self.local_rank
