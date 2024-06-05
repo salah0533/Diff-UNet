@@ -113,7 +113,7 @@ class BraTSTrainer(Trainer):
 
     def validation_step(self, batch):
         image, label = self.get_input(batch)
-        print('----------- image device ',image.device)
+
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)

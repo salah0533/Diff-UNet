@@ -146,6 +146,7 @@ class Trainer:
             exit(0)
         val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False)
         self.model.to(self.device)
+        print(f'---------------------- model {self.model.device}---------')
         val_outputs = []
         self.model.eval()
         for idx, batch in tqdm(enumerate(val_loader), total=len(val_loader)):
