@@ -130,7 +130,7 @@ class BraTSTrainer(Trainer):
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
-        if epoch >= 10:
+        if epoch >= 9:
             try:
                 os.mkdir('/kaggle/working/seg')
             except:
