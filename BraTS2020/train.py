@@ -131,7 +131,7 @@ class BraTSTrainer(Trainer):
 
         output = torch.sigmoid(output)
         output = (output > 0.5).float().cpu().numpy()
-        
+
         if epoch >= 0:
             try:
                 os.mkdir('/kaggle/working/seg')
@@ -139,11 +139,9 @@ class BraTSTrainer(Trainer):
                 pass
             out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
             label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
-            np.savez_compressed(out_sv_dir,output.cpu())
-            np.savez_compressed(label_sv_dir,label.cpu())
+            np.savez_compressed(out_sv_dir,output)
+            np.savez_compressed(label_sv_dir,label)
             #print('-------------------- saved ----------------')
-
-
 
 
         target = label.cpu().numpy()
