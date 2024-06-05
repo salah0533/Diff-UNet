@@ -166,8 +166,6 @@ class Trainer:
 
             with torch.no_grad():
                 val_out = self.validation_step(batch)
-                logdir = f"/kaggle/working/logs_brats/{idx}.npz"
-                np.savez_compressed(logdir,val_out.cpu())
                 assert val_out is not None 
 
             return_list = False

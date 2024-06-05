@@ -114,8 +114,11 @@ class BraTSTrainer(Trainer):
         image, label = self.get_input(batch)
        
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
-        output = torch.sigmoid(output)
-
+        print('----------- output device ',output.device)
+        print('----------- model device ',self.model.device)
+        # output = torch.sigmoid(output)
+        # logdir = f"/kaggle/working/logs_brats/{idx}.npz"
+        np.savez_compressed(logdir,output.cpu())
         output = (output > 0.5).float().cpu().numpy()
 
         target = label.cpu().numpy()
@@ -159,5 +162,5 @@ if __name__ == "__main__":
     logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/best_model_0.7444.pt"
     trainer.load_state_dict(logdir)
     v_mean, _ = trainer.validation_single_gpu(val_dataset=test_ds)
-    
+
     print(f"v_mean is {v_mean}")
