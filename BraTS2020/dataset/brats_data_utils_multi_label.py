@@ -146,10 +146,12 @@ class Args:
 
 def get_loader_brats(data_dir, batch_size=1, fold=0, num_workers=8):
 
-    all_dirs = os.listdir(data_dir)
-    print(f'----------------- found {len(all_dirs) in {data_dir}} --------------')
-    all_paths = [os.path.join(data_dir, d) for d in all_dirs]
+    # all_dirs = os.listdir(data_dir)
+    # print(f'----------------- found {len(all_dirs) in {data_dir}} --------------')
+    # all_paths = [os.path.join(data_dir, d) for d in all_dirs]
+
     "--------------------- my --------------------"
+    all_paths = [f.path for f in os.scandir(data_dir) if f.is_dir()]
     # file BraTS20_Training_355 has ill formatted name for for seg.nii file
     all_paths.remove(os.path.join(data_dir,'BraTS20_Training_355'))
 
@@ -176,8 +178,8 @@ def get_loader_brats(data_dir, batch_size=1, fold=0, num_workers=8):
     test_size = len(test_files)
     val_size = len(val_files)
     "-------------------------------------------"
-    import random
-    random.shuffle(all_paths)
+    # import random
+    # random.shuffle(all_paths)
     # .
     # train_size = int(0.7 * size)
     # val_size = int(0.1 * size)
