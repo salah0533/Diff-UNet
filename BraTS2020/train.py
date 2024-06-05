@@ -191,7 +191,10 @@ if __name__ == "__main__":
                             num_gpus=num_gpus,
                             master_port=17751,
                             training_script=__file__)
-    logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/best_model_0.7444.pt"
-    trainer.load_state_dict(logdir)
-    print('weights loaded secsesfully')
+    try:
+        logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/best_model_0.7444.pt"
+        trainer.load_state_dict(logdir)
+        print('weights loaded secsesfully')
+    except:
+        print("couldn't loaded weights")
     trainer.train(train_dataset=train_ds, val_dataset=val_ds)
