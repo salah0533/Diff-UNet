@@ -28,7 +28,7 @@ model_save_path = os.path.join(logdir, "model")
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 300
 batch_size = 1
-val_every = 10
+val_every = 1
 num_gpus = 1
 device = "cuda:0"
 
@@ -130,7 +130,7 @@ class BraTSTrainer(Trainer):
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
-        if epoch >= 9:
+        if epoch >= 0:
             try:
                 os.mkdir('/kaggle/working/seg')
             except:
