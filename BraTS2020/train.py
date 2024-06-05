@@ -28,8 +28,8 @@ model_save_path = os.path.join(logdir, "model")
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 300
 batch_size = 1
-val_every = 1
-num_gpus = 2
+val_every = 5
+num_gpus = 1
 device = "cuda:0"
 
 number_modality = 4
@@ -124,7 +124,7 @@ class BraTSTrainer(Trainer):
         label = label.float()
         return image, label 
 
-    def validation_step(self, batch,idx):
+    def validation_step(self, batch,idx,epoch):
         image, label = self.get_input(batch)    
         
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
@@ -134,10 +134,12 @@ class BraTSTrainer(Trainer):
             os.mkdir('/kaggle/working/seg')
         except:
             pass
-        sv_dir = f"/kaggle/working/seg/{idx}.npz"
+        out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
+        label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
+        np.savez_compressed(out_sv_dir,output.cpu())
+        np.savez_compressed(label_sv_dir,label.cpu())
+        #print('-------------------- saved ----------------')
 
-        print('-------------------- saved ----------------')
-        np.savez_compressed(sv_dir,output.cpu())
         output = (output > 0.5).float().cpu().numpy()
 
         target = label.cpu().numpy()
@@ -180,6 +182,22 @@ class BraTSTrainer(Trainer):
         print(f"wt is {wt}, tc is {tc}, et is {et}, mean_dice is {mean_dice}")
 
 if __name__ == "__main__":
+
+    train_and_val_directories = [f.path for f in os.scandir(data_dir) if f.is_dir()]
+    def pathListIntoIds(dirList):
+        x = []
+        for i in range(0,len(dirList)):
+            x.append(dirList[i][dirList[i].rfind('/')+1:])
+        return x
+
+    train_and_test_ids = pathListIntoIds(train_and_val_directories)
+    train_test_split_brats20 = {}
+
+    train_test_split_brats20['test'] = ["BraTS20_Training_254", "BraTS20_Training_068", "BraTS20_Training_137", "BraTS20_Training_106", "BraTS20_Training_146", "BraTS20_Training_102", "BraTS20_Training_034", "BraTS20_Training_242", "BraTS20_Training_114", "BraTS20_Training_105", "BraTS20_Training_006", "BraTS20_Training_210", "BraTS20_Training_149", "BraTS20_Training_074", "BraTS20_Training_115", "BraTS20_Training_185", "BraTS20_Training_053", "BraTS20_Training_246", "BraTS20_Training_338", "BraTS20_Training_099", "BraTS20_Training_316", "BraTS20_Training_131", "BraTS20_Training_162", "BraTS20_Training_177", "BraTS20_Training_104", "BraTS20_Training_113", "BraTS20_Training_268", "BraTS20_Training_266", "BraTS20_Training_049", "BraTS20_Training_056", "BraTS20_Training_223", "BraTS20_Training_226", "BraTS20_Training_132", "BraTS20_Training_175", "BraTS20_Training_166", "BraTS20_Training_080", "BraTS20_Training_042", "BraTS20_Training_201", "BraTS20_Training_298", "BraTS20_Training_328", "BraTS20_Training_163", "BraTS20_Training_291", "BraTS20_Training_111", "BraTS20_Training_069", "BraTS20_Training_215", "BraTS20_Training_033", "BraTS20_Training_311", "BraTS20_Training_151", "BraTS20_Training_019", "BraTS20_Training_247", "BraTS20_Training_248", "BraTS20_Training_229", "BraTS20_Training_305", "BraTS20_Training_351", "BraTS20_Training_030", "BraTS20_Training_008", "BraTS20_Training_356", "BraTS20_Training_205", "BraTS20_Training_170", "BraTS20_Training_269", "BraTS20_Training_341", "BraTS20_Training_292", "BraTS20_Training_138", "BraTS20_Training_260", "BraTS20_Training_057", "BraTS20_Training_263", "BraTS20_Training_366", "BraTS20_Training_212", "BraTS20_Training_174", "BraTS20_Training_090", "BraTS20_Training_359", "BraTS20_Training_118", "BraTS20_Training_219", "BraTS20_Training_076"]
+    train_test_split_brats20['train'] = []
+    for id in np.sort(train_and_test_ids):
+        if id not in train_test_split_brats20['test']:
+            train_test_split_brats20['train'].append(id)
 
     train_ds, val_ds, test_ds = get_loader_brats(data_dir=data_dir, batch_size=batch_size, fold=0)
     trainer = BraTSTrainer(env_type=env,

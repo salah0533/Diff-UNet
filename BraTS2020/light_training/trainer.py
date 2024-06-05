@@ -300,7 +300,7 @@ class Trainer:
                         exit(0)
 
                     with torch.no_grad():
-                        val_out = self.validation_step(batch,idx)
+                        val_out = self.validation_step(batch,idx,epoch)
                         assert val_out is not None 
 
                     return_list = False

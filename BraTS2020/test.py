@@ -111,7 +111,7 @@ class BraTSTrainer(Trainer):
         label = label.float()
         return image, label 
 
-    def validation_step(self, batch,idx):
+    def validation_step(self, batch,idx,epoch):
         image, label = self.get_input(batch)
 
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
