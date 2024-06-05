@@ -130,6 +130,8 @@ class BraTSTrainer(Trainer):
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
+        output = (output > 0.5).float().cpu().numpy()
+        
         if epoch >= 0:
             try:
                 os.mkdir('/kaggle/working/seg')
@@ -141,7 +143,8 @@ class BraTSTrainer(Trainer):
             np.savez_compressed(label_sv_dir,label.cpu())
             #print('-------------------- saved ----------------')
 
-        output = (output > 0.5).float().cpu().numpy()
+
+
 
         target = label.cpu().numpy()
         o = output[:, 1]
