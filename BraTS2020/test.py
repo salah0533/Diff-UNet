@@ -18,7 +18,7 @@ from unet.basic_unet import BasicUNetEncoder
 set_determinism(123)
 import os
 
-data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_TrainingData"
+data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/"
 
 max_epoch = 300
 batch_size = 2
@@ -156,8 +156,8 @@ if __name__ == "__main__":
                                     master_port=17751,
                                     training_script=__file__)
 
-    logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/final_model_0.8696.pt"
+    logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/best_model_0.7444.pt"
     trainer.load_state_dict(logdir)
     v_mean, _ = trainer.validation_single_gpu(val_dataset=test_ds)
-
+    
     print(f"v_mean is {v_mean}")
