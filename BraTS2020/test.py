@@ -112,10 +112,10 @@ class BraTSTrainer(Trainer):
 
     def validation_step(self, batch):
         image, label = self.get_input(batch)
-       
-        output = self.window_infer(image, self.model, pred_type="ddim_sample")
         print('----------- output device ',output.device)
         print('----------- model device ',self.model.device)
+        output = self.window_infer(image, self.model, pred_type="ddim_sample")
+
         # output = torch.sigmoid(output)
         # logdir = f"/kaggle/working/logs_brats/{idx}.npz"
         np.savez_compressed(logdir,output.cpu())
