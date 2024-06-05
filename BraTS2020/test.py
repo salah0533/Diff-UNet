@@ -23,7 +23,8 @@ data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_Training
 max_epoch = 300
 batch_size = 2
 val_every = 10
-device = "cuda:0"
+# device = "cuda:0"
+device = "cpu"
 
 number_modality = 4
 number_targets = 3 ## WT, TC, ET
