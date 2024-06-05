@@ -28,7 +28,7 @@ model_save_path = os.path.join(logdir, "model")
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 300
 batch_size = 1
-val_every = 1
+val_every = 10
 num_gpus = 1
 device = "cuda:0"
 
@@ -130,15 +130,16 @@ class BraTSTrainer(Trainer):
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
-        try:
-            os.mkdir('/kaggle/working/seg')
-        except:
-            pass
-        out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
-        label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
-        np.savez_compressed(out_sv_dir,output.cpu())
-        np.savez_compressed(label_sv_dir,label.cpu())
-        #print('-------------------- saved ----------------')
+        if epoch >= 10:
+            try:
+                os.mkdir('/kaggle/working/seg')
+            except:
+                pass
+            out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
+            label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
+            np.savez_compressed(out_sv_dir,output.cpu())
+            np.savez_compressed(label_sv_dir,label.cpu())
+            #print('-------------------- saved ----------------')
 
         output = (output > 0.5).float().cpu().numpy()
 
