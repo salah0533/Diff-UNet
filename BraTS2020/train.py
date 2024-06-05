@@ -124,13 +124,18 @@ class BraTSTrainer(Trainer):
         label = label.float()
         return image, label 
 
-    def validation_step(self, batch):
+    def validation_step(self, batch,idx):
         image, label = self.get_input(batch)    
         
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
-        sv_dir = f"/kaggle/working/logs_brats/{0}.npz"
+        try:
+            os.mkdir('/kaggle/working/seg')
+        except:
+            pass
+        sv_dir = f"/kaggle/working/seg/{idx}.npz"
+
         print('-------------------- saved ----------------')
         np.savez_compressed(sv_dir,output.cpu())
         output = (output > 0.5).float().cpu().numpy()
