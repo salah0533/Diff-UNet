@@ -130,7 +130,8 @@ class BraTSTrainer(Trainer):
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
-
+        logdir = f"/kaggle/working/logs_brats/{0}.npz"
+        np.savez_compressed(logdir,output.cpu())
         output = (output > 0.5).float().cpu().numpy()
 
         target = label.cpu().numpy()
@@ -184,5 +185,7 @@ if __name__ == "__main__":
                             num_gpus=num_gpus,
                             master_port=17751,
                             training_script=__file__)
-
+    logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model/best_model_0.7444.pt"
+    trainer.load_state_dict(logdir)
+    print('weights loaded secsesfully')
     trainer.train(train_dataset=train_ds, val_dataset=val_ds)

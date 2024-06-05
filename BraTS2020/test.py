@@ -117,8 +117,6 @@ class BraTSTrainer(Trainer):
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
         output = torch.sigmoid(output)
-        logdir = f"/kaggle/working/logs_brats/{0}.npz"
-        np.savez_compressed(logdir,output.cpu())
 
         output = (output > 0.5).float().cpu().numpy()
 

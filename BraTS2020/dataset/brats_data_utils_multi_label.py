@@ -169,9 +169,9 @@ def get_loader_brats(data_dir, batch_size=1, fold=0, num_workers=8):
         if id not in train_test_split_brats20['test']:
             train_test_split_brats20['train'].append(id)
 
-    train_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['train']]
-    test_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['test']]
-    val_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['test']]
+    train_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['train']][:2]
+    test_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['test']][:5]
+    val_files = [os.path.join(data_dir, d) for d in train_test_split_brats20['test']][:5]
     train_size = len(train_files)
     test_size = len(test_files)
     val_size = len(val_files)
