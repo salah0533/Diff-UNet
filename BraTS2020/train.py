@@ -28,7 +28,7 @@ model_save_path = os.path.join(logdir, "model")
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 300
 batch_size = 1
-val_every = 10
+val_every = 1
 num_gpus = 2
 device = "cuda:0"
 
