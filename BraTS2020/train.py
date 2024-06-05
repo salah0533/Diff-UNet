@@ -131,6 +131,7 @@ class BraTSTrainer(Trainer):
 
         output = torch.sigmoid(output)
         logdir = f"/kaggle/working/logs_brats/{0}.npz"
+        print('-------------------- saved ----------------')
         np.savez_compressed(logdir,output.cpu())
         output = (output > 0.5).float().cpu().numpy()
 
