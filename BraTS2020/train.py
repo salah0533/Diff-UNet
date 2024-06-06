@@ -205,7 +205,9 @@ if __name__ == "__main__":
     "--------------- setup dataset dir to be upladed later ---------------------"
 
     os.makedirs(kaggle_dir, exist_ok=True)
-
+    API = {"username":"salahpsg","key":"b4e0ab6c595cd6615cf39b847adff51c"}
+    os.environ['KAGGLE_USERNAME'] = API["username"]
+    os.environ['KAGGLE_KEY'] = API["key"]
 
     dataset_name = 'Diff-UNet-wieghts'
 

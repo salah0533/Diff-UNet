@@ -212,9 +212,9 @@ class Trainer:
                 val_dataset=None,
                 scheduler=None,
               ):
-        API = {"username":"salahpsg","key":"b4e0ab6c595cd6615cf39b847adff51c"}
-        os.environ['KAGGLE_USERNAME'] = API["username"]
-        os.environ['KAGGLE_KEY'] = API["key"]
+        # API = {"username":"salahpsg","key":"b4e0ab6c595cd6615cf39b847adff51c"}
+        # os.environ['KAGGLE_USERNAME'] = API["username"]
+        # os.environ['KAGGLE_KEY'] = API["key"]
         
         if scheduler is not None:
             self.scheduler = scheduler
