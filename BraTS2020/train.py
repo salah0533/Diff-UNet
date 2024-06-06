@@ -202,24 +202,25 @@ if __name__ == "__main__":
     for id in np.sort(train_and_test_ids):
         if id not in train_test_split_brats20['test']:
             train_test_split_brats20['train'].append(id)
-    # "--------------- setup dataset dir to be upladed later ---------------------"
+    "--------------- setup dataset dir to be upladed later ---------------------"
 
-    # os.makedirs(kaggle_dir, exist_ok=True)
+    os.makedirs(kaggle_dir, exist_ok=True)
 
 
-    # dataset_name = 'Diff-UNet'
+    dataset_name = 'Diff-UNet-wieghts'
 
-    # with open(os.path.join(kaggle_dir , 'dataset-metadata.json'), 'w') as f:
-    #         json.dump({
-    #               "title": dataset_name,
-    #               "id": os.environ['KAGGLE_USERNAME']+"/"+dataset_name,
-    #               "licenses": [
-    #                 {
-    #                   "name": "CC0-1.0"
-    #                 }
-    #               ]
-    #             },
-    #           f)
+
+    with open(os.path.join(kaggle_dir , 'dataset-metadata.json'), 'w') as f:
+            json.dump({
+                  "title": dataset_name,
+                  "id": os.environ['KAGGLE_USERNAME']+"/"+dataset_name,
+                  "licenses": [
+                    {
+                      "name": "CC0-1.0"
+                    }
+                  ]
+                },
+              f)
     '---------------------------------------------------------------------------'
     train_ds, val_ds, test_ds = get_loader_brats(data_dir=data_dir, batch_size=batch_size, fold=0)
     trainer = BraTSTrainer(env_type=env,
