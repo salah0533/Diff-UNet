@@ -30,7 +30,7 @@ kaggle_dir = '/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model'
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 200
 batch_size = 1
-val_every =5
+val_every =10
 num_gpus = 1
 device = "cuda:0"
 
