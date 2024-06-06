@@ -307,6 +307,13 @@ class Trainer:
                     val_outputs.append(val_out)
                     if isinstance(val_out, list) or isinstance(val_out, tuple):
                         return_list = True
+                '----- upladed the models to kaggle datasets --------------'
+                if os.system('kaggle datasets version -p "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model" -m "update"')==0:
+                    print('dataset has been updated successfully')
+                elif os.system('!kaggle datasets create -p "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model"')==0:
+                    print('dataset has been created successfully')
+                else:
+                    print('error during creating the dataset') 
 
                 ## 先汇总结果。
                 if self.ddp:

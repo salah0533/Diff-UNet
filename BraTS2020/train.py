@@ -18,10 +18,10 @@ from guided_diffusion.respace import SpacedDiffusion, space_timesteps
 from guided_diffusion.resample import UniformSampler
 set_determinism(123)
 import os
-
+import json
 data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/"
 logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/"
-
+dataset_dir = logdir+'model'
 model_save_path = os.path.join(logdir, "model")
 
 #env = "DDP" # or env = "pytorch" if you only have one gpu.
@@ -200,7 +200,27 @@ if __name__ == "__main__":
     for id in np.sort(train_and_test_ids):
         if id not in train_test_split_brats20['test']:
             train_test_split_brats20['train'].append(id)
+    "--------------- setup dataset dir to be upladed later ---------------------"
+    API = {"username":"salahpsg","key":"b4e0ab6c595cd6615cf39b847adff51c"}
+    
+    os.makedirs(dataset_dir, exist_ok=True)
 
+    os.environ['KAGGLE_USERNAME'] = API["username"]
+    os.environ['KAGGLE_KEY'] = API["key"]
+    dataset_name = 'Diff-UNet'
+
+    with open(logdir + 'dataset-metadata.json', 'w') as f:
+            json.dump({
+                  "title": dataset_name,
+                  "id": os.environ['KAGGLE_USERNAME']+"/"+dataset_name,
+                  "licenses": [
+                    {
+                      "name": "CC0-1.0"
+                    }
+                  ]
+                },
+              f)
+    '---------------------------------------------------------------------------'
     train_ds, val_ds, test_ds = get_loader_brats(data_dir=data_dir, batch_size=batch_size, fold=0)
     trainer = BraTSTrainer(env_type=env,
                             max_epochs=max_epoch,
