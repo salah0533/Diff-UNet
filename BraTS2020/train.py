@@ -209,7 +209,7 @@ if __name__ == "__main__":
     os.environ['KAGGLE_KEY'] = API["key"]
     dataset_name = 'Diff-UNet'
 
-    with open(logdir + 'dataset-metadata.json', 'w') as f:
+    with open(dataset_dir + 'dataset-metadata.json', 'w') as f:
             json.dump({
                   "title": dataset_name,
                   "id": os.environ['KAGGLE_USERNAME']+"/"+dataset_name,
