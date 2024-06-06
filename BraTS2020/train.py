@@ -21,8 +21,8 @@ import os
 import json
 data_dir = "/kaggle/input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/"
 logdir = "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/"
-dataset_dir = logdir+'model'
-model_save_path = os.path.join(logdir, "model")
+kaggle_dir = '/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model'
+
 
 #env = "DDP" # or env = "pytorch" if you only have one gpu.
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
@@ -202,12 +202,12 @@ if __name__ == "__main__":
             train_test_split_brats20['train'].append(id)
     "--------------- setup dataset dir to be upladed later ---------------------"
 
-    os.makedirs(dataset_dir, exist_ok=True)
+    os.makedirs(kaggle_dir, exist_ok=True)
 
-    
+
     dataset_name = 'Diff-UNet'
 
-    with open(dataset_dir + 'dataset-metadata.json', 'w') as f:
+    with open(os.path.join(kaggle_dir , 'dataset-metadata.json'), 'w') as f:
             json.dump({
                   "title": dataset_name,
                   "id": os.environ['KAGGLE_USERNAME']+"/"+dataset_name,
