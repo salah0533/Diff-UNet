@@ -212,7 +212,9 @@ class Trainer:
                 val_dataset=None,
                 scheduler=None,
               ):
-       
+        API = {"username":"salahpsg","key":"b4e0ab6c595cd6615cf39b847adff51c"}
+        os.environ['KAGGLE_USERNAME'] = API["username"]
+        os.environ['KAGGLE_KEY'] = API["key"]
         
         if scheduler is not None:
             self.scheduler = scheduler
@@ -307,13 +309,7 @@ class Trainer:
                     val_outputs.append(val_out)
                     if isinstance(val_out, list) or isinstance(val_out, tuple):
                         return_list = True
-                '----- upladed the models to kaggle datasets --------------'
-                if os.system('kaggle datasets version -p "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model" -m "update"')==0:
-                    print('dataset has been updated successfully')
-                elif os.system('!kaggle datasets create -p "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model"')==0:
-                    print('dataset has been created successfully')
-                else:
-                    print('error during creating the dataset') 
+
 
                 ## 先汇总结果。
                 if self.ddp:
@@ -361,7 +357,13 @@ class Trainer:
                                 v_sum[i] = v_sum[i] / length[i]
 
                         self.validation_end(mean_val_outputs=v_sum)
-
+                        '----- upladed the models to kaggle datasets --------------'
+                        if os.system('kaggle datasets version -p "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model" -m "update"')==0:
+                            print('dataset has been updated successfully')
+                        elif os.system('!kaggle datasets create -p "/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model"')==0:
+                            print('dataset has been created successfully')
+                        else:
+                            print('error during creating the dataset') 
             if self.scheduler is not None:
                 self.scheduler.step()
             if self.model is not None:

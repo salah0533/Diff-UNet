@@ -201,12 +201,10 @@ if __name__ == "__main__":
         if id not in train_test_split_brats20['test']:
             train_test_split_brats20['train'].append(id)
     "--------------- setup dataset dir to be upladed later ---------------------"
-    API = {"username":"salahpsg","key":"b4e0ab6c595cd6615cf39b847adff51c"}
-    
+
     os.makedirs(dataset_dir, exist_ok=True)
 
-    os.environ['KAGGLE_USERNAME'] = API["username"]
-    os.environ['KAGGLE_KEY'] = API["key"]
+    
     dataset_name = 'Diff-UNet'
 
     with open(dataset_dir + 'dataset-metadata.json', 'w') as f:
