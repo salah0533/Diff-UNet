@@ -235,7 +235,7 @@ if __name__ == "__main__":
                             master_port=17751,
                             training_script=__file__)
     try:
-        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.7518.pt"
+        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8174.pt"
         trainer.load_state_dict(best_model_path)
         print('weights loaded secsesfully')
     except:
