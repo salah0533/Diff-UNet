@@ -129,7 +129,7 @@ class BraTSTrainer(Trainer):
     def validation_step(self, batch,idx,epoch):
         best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8124.pt"
         trainer.load_state_dict(best_model_path)
-        print('weights loaded secsesfully')
+        #print('weights loaded secsesfully')
         image, label = self.get_input(batch)    
         
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
