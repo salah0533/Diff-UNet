@@ -127,7 +127,7 @@ class BraTSTrainer(Trainer):
         return image, label 
 
     def validation_step(self, batch,idx,epoch):
-        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8174.pt"
+        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8124.pt"
         trainer.load_state_dict(best_model_path)
         print('weights loaded secsesfully')
         image, label = self.get_input(batch)    
@@ -237,7 +237,7 @@ if __name__ == "__main__":
                             master_port=17751,
                             training_script=__file__)
     try:
-        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8174.pt"
+        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8124.pt"
         trainer.load_state_dict(best_model_path)
         print('weights loaded secsesfully')
     except:
