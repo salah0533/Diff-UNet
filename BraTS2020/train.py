@@ -30,7 +30,7 @@ kaggle_dir = '/kaggle/working/logs_brats/diffusion_seg_all_loss_embed/model'
 env = "pytorch" # or env = "pytorch" if you only have one gpu.
 max_epoch = 200
 batch_size = 1
-val_every =10
+val_every =1
 num_gpus = 1
 device = "cuda:0"
 
@@ -127,6 +127,9 @@ class BraTSTrainer(Trainer):
         return image, label 
 
     def validation_step(self, batch,idx,epoch):
+        best_model_path = "/kaggle/input/diff-unet-wieghts/best_model_0.8174.pt"
+        trainer.load_state_dict(best_model_path)
+        print('weights loaded secsesfully')
         image, label = self.get_input(batch)    
         
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
@@ -134,16 +137,15 @@ class BraTSTrainer(Trainer):
         output = torch.sigmoid(output)
         output = (output > 0.5).float().cpu().numpy()
 
-        if epoch >= 0:
-            try:
-                os.mkdir('/kaggle/working/seg')
-            except:
-                pass
-            out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
-            label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
-            np.savez_compressed(out_sv_dir,output)
-            np.savez_compressed(label_sv_dir,label)
-            #print('-------------------- saved ----------------')
+        try:
+            os.mkdir('/kaggle/working/seg')
+        except:
+            pass
+        out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
+        label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
+        np.savez_compressed(out_sv_dir,output)
+        np.savez_compressed(label_sv_dir,label)
+        #print('-------------------- saved ----------------')
 
 
         target = label.cpu().numpy()
