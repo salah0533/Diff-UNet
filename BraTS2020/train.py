@@ -141,8 +141,8 @@ class BraTSTrainer(Trainer):
             os.mkdir('/kaggle/working/seg')
         except:
             pass
-        out_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_out.npz"
-        label_sv_dir = f"/kaggle/working/seg/{train_test_split_brats20['test'][idx]}_seg.npz"
+        out_sv_dir = f"/kaggle/working/seg/{all_ids[idx]}_out.npz"
+        label_sv_dir = f"/kaggle/working/seg/{all_ids[idx]}_seg.npz"
         np.savez_compressed(out_sv_dir,output)
         np.savez_compressed(label_sv_dir,label)
         #print('-------------------- saved ----------------')
@@ -204,6 +204,7 @@ if __name__ == "__main__":
     for id in np.sort(train_and_test_ids):
         if id not in train_test_split_brats20['test']:
             train_test_split_brats20['train'].append(id)
+    all_ids = train_test_split_brats20['train'] + train_test_split_brats20['test']
     "--------------- setup dataset dir to be upladed later ---------------------"
 
     os.makedirs(kaggle_dir, exist_ok=True)
