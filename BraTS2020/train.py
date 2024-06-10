@@ -134,8 +134,7 @@ class BraTSTrainer(Trainer):
         
         output = self.window_infer(image, self.model, pred_type="ddim_sample")
 
-        output = torch.sigmoid(output)
-        output = (output > 0.5).float().cpu().numpy()
+
 
         try:
             os.mkdir('/kaggle/working/seg')
@@ -143,9 +142,11 @@ class BraTSTrainer(Trainer):
             pass
         out_sv_dir = f"/kaggle/working/seg/{all_ids[idx]}_out.npz"
         label_sv_dir = f"/kaggle/working/seg/{all_ids[idx]}_seg.npz"
-        np.savez_compressed(out_sv_dir,output)
+        np.savez_compressed(out_sv_dir,output.cpu())
         np.savez_compressed(label_sv_dir,label)
         #print('-------------------- saved ----------------')
+        output = torch.sigmoid(output)
+        output = (output > 0.5).float().cpu().numpy()
 
 
         target = label.cpu().numpy()
